@@ -1,0 +1,34 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+  registry:
+    name: consul
+    addr: 127.0.0.1:8500
+    schema: http
+  tracer:
+    url: 116.63.153.137:14268/api/traces
+
+
+
+data:
+  database:
+    driver: mysql
+    host: "116.63.153.137"
+    port: "3306"
+    username: root
+    password: "116118"
+    database_name: user
+  redis:
+    addr: 116.63.153.137:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+  registry:
+    name: consul
+    addr: 127.0.0.1:8500
+    schema: http
+  tracer:
+    url: 116.63.153.137:14268/api/traces  

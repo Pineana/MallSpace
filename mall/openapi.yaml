@@ -1,0 +1,85 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Mall API
+    description: The greeting service definition.
+    version: 0.0.1
+paths:
+    /v1/login:
+        post:
+            tags:
+                - Mall
+            operationId: Mall_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/mall.v1.LoginRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/mall.v1.LoginReply'
+    /v1/register:
+        post:
+            tags:
+                - Mall
+            description: Sends a greeting
+            operationId: Mall_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/mall.v1.RegisterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/mall.v1.RegisterReply'
+components:
+    schemas:
+        mall.v1.LoginReply:
+            type: object
+            properties:
+                token:
+                    type: string
+        mall.v1.LoginRequest:
+            type: object
+            properties:
+                phone:
+                    type: string
+                password:
+                    type: string
+        mall.v1.RegisterReply:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+            description: The response message containing the greetings
+        mall.v1.RegisterRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                phone:
+                    type: string
+                password:
+                    type: string
+                sex:
+                    type: integer
+                    format: enum
+                year:
+                    type: integer
+                    format: int32
+            description: The request message containing the user's name.
+tags:
+    - name: Mall

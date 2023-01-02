@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package order.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+
+option go_package = "order/api/order/v1;v1";
+
+
+// The greeting service definition.
+service OrderService {
+  rpc UpdateOrderStatus (UpdateOrderStatusRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      put: "/v1/orders/{order_id}"
+      body:"*"
+    };
+  }
+  rpc GetOrder (GetOrderRequest) returns (Order){
+    option (google.api.http) = {
+      get: "/v1/orders/{order_id}"
+    };
+  }
+  rpc CreateOrder (CreateOrderRequest) returns (Order){
+    option (google.api.http) = {
+      post: "/v1/orders"
+      body:"order"
+    };
+  }
+  rpc DeleteOrder (DeleteOrderRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      delete: "/v1/orders/{order_id}"
+    };
+  }
+  
+}
+
+message Order {
+  int64 user_id = 1;
+  string order_id = 2;
+  Status status = 3;
+  string trade_id = 4;
+  float order_mount = 5;
+  google.protobuf.Timestamp pay_at  = 6;
+  google.protobuf.Timestamp create_at = 7;
+  google.protobuf.Timestamp update_at = 8;
+  google.protobuf.Timestamp delete_at = 9;
+  bool is_deleted = 10;
+}
+
+enum Status {
+  UNPAY = 0;
+  SUCCESS = 1;
+  CLOSE = 2;
+  FAIL = 3;
+}
+
+// The request message containing the user's name.
+message UpdateOrderStatusRequest {
+  string order_id = 1;
+}
+
+message GetOrderRequest{
+  string order_id = 1;
+}
+
+
+message CreateOrderRequest{
+  Order order = 2;
+}
+
+message DeleteOrderRequest{
+  string order_id = 1;
+}

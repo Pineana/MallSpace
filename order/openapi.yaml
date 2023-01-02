@@ -1,0 +1,119 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: OrderService API
+    description: The greeting service definition.
+    version: 0.0.1
+paths:
+    /v1/orders:
+        post:
+            tags:
+                - OrderService
+            operationId: OrderService_CreateOrder
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/order.v1.Order'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/order.v1.Order'
+    /v1/orders/{orderId}:
+        get:
+            tags:
+                - OrderService
+            operationId: OrderService_GetOrder
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/order.v1.Order'
+        put:
+            tags:
+                - OrderService
+            operationId: OrderService_UpdateOrderStatus
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/order.v1.UpdateOrderStatusRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+        delete:
+            tags:
+                - OrderService
+            operationId: OrderService_DeleteOrder
+            parameters:
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+components:
+    schemas:
+        order.v1.Order:
+            type: object
+            properties:
+                userId:
+                    type: integer
+                    format: int64
+                orderId:
+                    type: string
+                status:
+                    type: integer
+                    format: enum
+                tradeId:
+                    type: string
+                orderMount:
+                    type: number
+                    format: float
+                payAt:
+                    type: string
+                    format: date-time
+                createAt:
+                    type: string
+                    format: date-time
+                updateAt:
+                    type: string
+                    format: date-time
+                deleteAt:
+                    type: string
+                    format: date-time
+                isDeleted:
+                    type: boolean
+        order.v1.UpdateOrderStatusRequest:
+            type: object
+            properties:
+                orderId:
+                    type: string
+            description: The request message containing the user's name.
+tags:
+    - name: OrderService

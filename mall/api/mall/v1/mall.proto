@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package mall.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "mall/api/mall/v1;v1";
+
+// The greeting service definition.
+service Mall {
+  // Sends a greeting
+  rpc Register (RegisterRequest) returns (RegisterReply) {
+    option (google.api.http) = {
+      post: "/v1/register"
+      body: "*"
+    };
+  }
+
+  rpc Login (LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  }  
+}
+
+// The request message containing the user's name.
+message RegisterRequest {
+  string name = 1;
+  string phone = 2;
+  string password = 3;
+  Sex sex = 4;
+  int32 year = 5;
+}
+
+enum Sex{
+  MALE  = 0;
+  FEMALE = 1;
+}
+
+// The response message containing the greetings
+message RegisterReply {
+  int64 id = 1;
+}
+
+message LoginReply{
+  string token  = 1;
+}
+
+message LoginRequest{
+  string phone = 1;
+  string password = 2;
+}

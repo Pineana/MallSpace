@@ -1,0 +1,25 @@
+server:
+  http:
+    addr: 0.0.0.0:8001
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9001
+    timeout: 1s
+  consul:
+    addr: 127.0.0.1:8500
+    schema: http
+  jaeger:
+    url: 116.63.153.137:14268/api/traces
+data:
+  database:
+    driver: mysql
+    host: "116.63.153.137"
+    port: "3306"
+    username: root
+    password: "116118"
+    database_name: order
+  redis:
+    addr: 116.63.153.137:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+  

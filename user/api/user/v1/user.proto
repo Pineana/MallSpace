@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "user/api/user/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.user.v1";
+option java_outer_classname = "userProtoV1";
+
+// The user service definition.
+service UserService {
+    rpc CreateUser (CreateUserRequest) returns (User) {
+      option (google.api.http) = {
+         post: "/v1/users"
+         body: "*"
+      };
+    }
+    rpc UpdateUser (UpdateUserRequest) returns (User) {
+      option (google.api.http) = {
+        put: "/v1/users/{id}"
+        body: "user"
+      };
+    }
+    rpc FindUserByPhone (FindUserByPhoneRequest) returns (User) {
+      option (google.api.http) = {
+        get: "/v1/users"
+      };
+    };
+    rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+        delete: "/v1/users/{id}"
+      };
+    }
+}
+
+// The request message containing the user's name.
+message CreateUserRequest {
+  string name = 1;
+  string phone = 2;
+  string password = 3;
+  Sex sex = 4;
+  int32 year = 5;
+}
+
+message UpdateUserRequest {
+  int64 id = 1;
+  User user = 2;
+}
+
+message FindUserByPhoneRequest {
+  string phone = 1;
+}
+
+message DeleteUserRequest{
+  int64 id = 1;
+}
+
+// The response message containing the greetings
+message User {
+  int64 id = 1;
+  string name = 2;
+  string phone = 3;
+  string password = 4;
+  Sex sex = 5;
+  int32 age = 6;
+  optional google.protobuf.Timestamp create_time = 7 [json_name = "create_time"];
+  optional google.protobuf.Timestamp update_time = 8 [json_name = "update_time"];
+  optional google.protobuf.Timestamp delete_time = 9 [json_name = "delete_time"];
+}
+
+enum Sex{
+    MALE  = 0;
+    FEMALE = 1;
+}
